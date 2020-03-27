@@ -1,17 +1,18 @@
 # -*- mode: dockerfile; coding: utf-8 -*-
 FROM debian:buster-slim AS build
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential \
-        libtool pkg-config curl ca-certificates unzip netbase \
-        openssh-client zlib1g-dev \
-    && mkdir /home/gauche \
-    && cd /home/gauche \
-    && curl https://raw.githubusercontent.com/shirok/get-gauche/master/get-gauche.sh > get-gauche.sh \
-    && chmod +x get-gauche.sh \
-    && ./get-gauche.sh --prefix /usr/local --version latest --auto \
-    && apt-get remove -y --purge --auto-remove build-essential \
-        libtool pkg-config curl unzip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y --no-install-recommends install \
+      build-essential libtool pkg-config curl ca-certificates unzip \
+      netbase openssh-client zlib1g-dev \
+ && rm -rf /var/lib/apt/lists/*
+WORKDIR /build
+COPY checksum checksum
+ADD http://prdownloads.sourceforge.net/gauche/Gauche-0.9.9.tgz gauche.tgz
+RUN sha256sum gauche.tgz && sha256sum -c checksum
+RUN mkdir gauche && tar -C gauche --strip-components 1 -xf gauche.tgz
+WORKDIR /build/gauche
+RUN ./configure --prefix=/usr/local
+RUN make
+RUN make install
 
 FROM debian:buster-slim
 COPY --from=build /usr/local/ /usr/local/
