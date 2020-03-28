@@ -6,7 +6,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /build
 COPY checksum checksum
-ADD http://prdownloads.sourceforge.net/gauche/Gauche-0.9.9.tgz gauche.tgz
+ADD https://github.com/shirok/Gauche/releases/download/release0_9_9/Gauche-0.9.9.tgz gauche.tgz
 RUN sha256sum gauche.tgz && sha256sum -c checksum
 RUN mkdir gauche && tar -C gauche --strip-components 1 -xf gauche.tgz
 WORKDIR /build/gauche
