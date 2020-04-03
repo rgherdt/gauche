@@ -10,7 +10,7 @@ ADD https://github.com/shirok/Gauche/releases/download/release0_9_9/Gauche-0.9.9
 RUN sha256sum gauche.tgz && sha256sum -c checksum
 RUN mkdir gauche && tar -C gauche --strip-components 1 -xf gauche.tgz
 WORKDIR /build/gauche
-RUN ./configure --prefix=/usr/local
+RUN ./configure
 RUN make
 RUN make install
 
