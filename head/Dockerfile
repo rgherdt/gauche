@@ -7,13 +7,14 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       netbase openssh-client zlib1g-dev \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /build
-RUN git clone https://github.com/shirok/Gauche.git gauche --depth 1
+RUN git clone https://github.com/shirok/Gauche.git gauche --depth 1 --tags
 WORKDIR /build/gauche
 RUN ./DIST gen
 RUN ./configure
 RUN make
 RUN make install
-RUN echo "Gauche ($(git describe))" >/usr/local/share/gauche-version
+RUN echo "Gauche ($(git describe --always --tags))" \
+      >/usr/local/share/gauche-version
 
 FROM debian:buster-slim
 COPY --from=build /usr/local/ /usr/local/
