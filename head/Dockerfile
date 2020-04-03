@@ -1,5 +1,5 @@
 # -*- mode: dockerfile; coding: utf-8 -*-
-FROM debian:buster-slim AS build
+FROM schemers/gauche:latest AS build
 RUN apt-get update && apt-get -y --no-install-recommends install \
       build-essential \
       autoconf automake libtool m4 git \
