@@ -13,6 +13,7 @@ RUN ./DIST gen
 RUN ./configure
 RUN make
 RUN make install
+RUN echo "Gauche ($(git describe))" >/usr/local/share/gauche-version
 
 FROM debian:buster-slim
 COPY --from=build /usr/local/ /usr/local/
