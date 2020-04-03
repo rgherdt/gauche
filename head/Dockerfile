@@ -1,7 +1,9 @@
 # -*- mode: dockerfile; coding: utf-8 -*-
 FROM debian:buster-slim AS build
 RUN apt-get update && apt-get -y --no-install-recommends install \
-      build-essential libtool pkg-config curl ca-certificates git unzip \
+      build-essential \
+      autoconf automake libtool m4 git \
+      pkg-config curl ca-certificates unzip \
       netbase openssh-client zlib1g-dev \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /build
