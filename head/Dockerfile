@@ -1,10 +1,9 @@
 # -*- mode: dockerfile; coding: utf-8 -*-
 FROM schemers/gauche:latest AS build
 RUN apt-get update && apt-get -y --no-install-recommends install \
-      build-essential \
       autoconf automake libtool m4 git \
-      pkg-config curl ca-certificates unzip \
-      netbase openssh-client zlib1g-dev libmbedtls-dev \
+      build-essential pkg-config ca-certificates \
+      netbase openssh-client libmbedtls-dev zlib1g-dev \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /build
 RUN git clone https://github.com/shirok/Gauche.git gauche --depth 1 --tags
