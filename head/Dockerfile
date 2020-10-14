@@ -10,7 +10,7 @@ WORKDIR /build
 RUN git clone https://github.com/shirok/Gauche.git gauche --depth 1 --tags
 WORKDIR /build/gauche
 RUN ./DIST gen
-RUN ./configure --with-mbedtls
+RUN ./configure
 RUN make
 RUN make install
 RUN echo "Gauche ($(git describe --always --tags))" \
