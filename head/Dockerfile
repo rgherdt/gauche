@@ -20,6 +20,6 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       libmbedtls12 ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 COPY --from=build /usr/local/ /usr/local/
-COPY scheme-banner /usr/local/bin/
+COPY scheme-banner scheme-eval /usr/local/bin/
 RUN ln -s gosh /usr/bin/scheme-r7rs
 CMD ["scheme-banner"]
