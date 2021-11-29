@@ -1,5 +1,5 @@
 # -*- mode: dockerfile; coding: utf-8 -*-
-FROM debian:buster-slim AS build
+FROM debian:bullseye-slim AS build
 RUN apt-get update && apt-get -y --no-install-recommends install \
       build-essential pkg-config ca-certificates \
       netbase openssh-client libmbedtls-dev zlib1g-dev \
@@ -14,7 +14,7 @@ RUN ./configure
 RUN make
 RUN make install
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 RUN apt-get update && apt-get -y --no-install-recommends install \
       libmbedtls12 ca-certificates \
  && rm -rf /var/lib/apt/lists/*

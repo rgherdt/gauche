@@ -15,7 +15,7 @@ RUN make install
 RUN echo "Gauche ($(git describe --always --tags))" \
       >/usr/local/share/gauche-version
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 RUN apt-get update && apt-get -y --no-install-recommends install \
       libmbedtls12 ca-certificates \
  && rm -rf /var/lib/apt/lists/*
